@@ -1,0 +1,19 @@
+fields:
+  - type: string
+    name: tconst
+  - type: string
+    name: titleType
+  - type: string
+    name: primaryTitle
+  - type: string
+    name: originalTitle
+  - type: integer
+    name: isAdult
+  - type: integer
+    name: startYear
+  - type: string
+    name: endYear
+  - type: string
+    name: runtimeMinutes
+  - type: string
+    name: genres

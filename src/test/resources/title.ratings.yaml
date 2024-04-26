@@ -1,0 +1,22 @@
+path: ../Data/title.ratings.tsv
+name: title.ratings
+profile: tabular-data-resource
+scheme: file
+format: tsv
+hashing: md5
+dialect:
+  delimiter: "\t"
+stats:
+  hash: a1380084863cbd166d3923a9b99f104d
+  bytes: 21569476
+  fields: 3
+  rows: 1251311
+encoding: utf-8
+schema:
+  fields:
+    - type: string
+      name: tconst
+    - type: number
+      name: averageRating
+    - type: integer
+      name: numVotes
