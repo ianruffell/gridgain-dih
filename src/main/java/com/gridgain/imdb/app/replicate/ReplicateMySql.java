@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.codehaus.plexus.util.FileUtils;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -39,6 +41,8 @@ public class ReplicateMySql {
 			ResultSet tablers = metaData.getTables(null, null, null, new String[] { "Table" });
 
 			List<Table> tables = new ArrayList<>();
+
+			FileUtils.forceMkdir(new File(Settings.getOutputPath()));
 
 			Configuration cfg = new Configuration(Configuration.VERSION_2_3_32);
 			cfg.setDirectoryForTemplateLoading(new File("templates"));
@@ -80,13 +84,13 @@ public class ReplicateMySql {
 
 				Template cacheConfig = cfg.getTemplate("cache_config_template.ftlh");
 				Writer out = new FileWriter(
-						new File("src/main/java/" + Settings.getOutputPath() + "/" + table.getClassname()
+						new File(Settings.getOutputPath() + "/" + table.getClassname()
 								+ "CacheConfiguration.java"));
 				cacheConfig.process(root, out);
 
 				Template pojo = cfg.getTemplate("pojo.ftlh");
 				out = new FileWriter(
-						new File("src/main/java/" + Settings.getOutputPath() + "/" + table.getClassname() + ".java"));
+						new File(Settings.getOutputPath() + "/" + table.getClassname() + ".java"));
 				pojo.process(root, out);
 			}
 
@@ -94,7 +98,7 @@ public class ReplicateMySql {
 			root.put("tables", tables);
 			Template ich = cfg.getTemplate("IgniteClientHelper.ftlh");
 			Writer out = new FileWriter(
-					new File("src/main/java/" + Settings.getOutputPath() + "/IgniteClientHelper.java"));
+					new File(Settings.getOutputPath() + "/IgniteClientHelper.java"));
 			ich.process(root, out);
 		} catch (SQLException ex) {
 			// handle any errors

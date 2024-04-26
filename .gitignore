@@ -5,3 +5,4 @@
 .settings
 **/Icon*
 target
+src/main/java/com/gridgain/gen

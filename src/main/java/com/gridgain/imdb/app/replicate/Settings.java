@@ -20,7 +20,7 @@ public class Settings {
 	}
 
 	public static String getOutputPath() {
-		return POJO_PACKAGE.replaceAll("\\.", "/");
+		return "src/main/java/" + POJO_PACKAGE.replaceAll("\\.", "/");
 	}
 
 	public static class DB {
