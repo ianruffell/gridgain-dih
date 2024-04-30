@@ -1,6 +1,7 @@
 package com.gridgain.gen.model;
 
 import org.apache.ignite.cache.query.annotations.QuerySqlField;
+import java.sql.Timestamp;
 
 public class ${table.classname} {
 

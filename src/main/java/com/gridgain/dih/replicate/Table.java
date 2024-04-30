@@ -1,4 +1,4 @@
-package com.gridgain.imdb.app.replicate;
+package com.gridgain.dih.replicate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.apache.commons.text.CaseUtils;
 
 public class Table {
-	private String name;
-	private String keyname;
-	private String keytype;
-	private String keysqltype;
-	private List<Column> columns = new ArrayList<>();
+	private final String name;
+	private final String keyname;
+	private final String keytype;
+	private final String keysqltype;
+	private final List<Column> columns = new ArrayList<>();
 
 	public Table(String name, String keyname, String keytype, String keysqltype) {
 		this.name = name;
@@ -27,40 +27,20 @@ public class Table {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getKeyname() {
 		return keyname;
-	}
-
-	public void setKeyname(String keyname) {
-		this.keyname = keyname;
 	}
 
 	public String getKeytype() {
 		return keytype;
 	}
 
-	public void setKeytype(String keytype) {
-		this.keytype = keytype;
-	}
-
 	public String getKeysqltype() {
 		return keysqltype;
 	}
 
-	public void setKeysqltype(String keysqltype) {
-		this.keysqltype = keysqltype;
-	}
-
 	public List<Column> getColumns() {
 		return columns;
-	}
-
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
 	}
 
 	public String getCCName() {
@@ -73,7 +53,8 @@ public class Table {
 
 	@Override
 	public String toString() {
-		return "Table [name=" + name + ", columns=" + columns + "]";
+		return "Table [name=" + name + ", keyname=" + keyname + ", keytype=" + keytype + ", keysqltype=" + keysqltype
+				+ ", columns=" + columns + "]";
 	}
 
 }

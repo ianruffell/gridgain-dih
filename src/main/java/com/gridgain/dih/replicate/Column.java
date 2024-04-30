@@ -1,4 +1,4 @@
-package com.gridgain.imdb.app.replicate;
+package com.gridgain.dih.replicate;
 
 import org.apache.commons.text.CaseUtils;
 
@@ -7,7 +7,9 @@ public class Column {
 	enum TypeMapping {
 
 		CHAR("String", "VARCHAR"), INT("Integer", "INTEGER"), SMALLINT("Integer", "INTEGER"),
-		DECIMAL("Double", "DECIMAL"), ENUM("String", "VARCHAR");
+		DECIMAL("Double", "DECIMAL"), ENUM("String", "VARCHAR"), varchar("String", "VARCHAR"),
+		bpchar("String", "VARCHAR"), numeric("Integer", "INTEGER"), int4("Integer", "INTEGER"),
+		timestamp("Timestamp", "TIMESTAMP");
 
 		private final String igniteType;
 		private String sqlType;

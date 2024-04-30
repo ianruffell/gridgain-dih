@@ -1,4 +1,4 @@
-package com.gridgain.imdb.app;
+package com.gridgain.dih.app;
 
 import org.apache.ignite.Ignition;
 

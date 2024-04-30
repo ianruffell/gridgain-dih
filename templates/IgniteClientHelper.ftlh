@@ -7,7 +7,7 @@ import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.configuration.IgniteConfiguration;
 
-import com.gridgain.imdb.app.DemoConfiguration;
+import com.gridgain.dih.app.DemoConfiguration;
 
 public class IgniteClientHelper implements AutoCloseable {
 

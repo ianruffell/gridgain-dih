@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.sql.Timestamp;
 
 import javax.cache.configuration.Factory;
 import javax.sql.DataSource;
@@ -14,10 +15,10 @@ import org.apache.ignite.cache.QueryEntity;
 import org.apache.ignite.cache.store.jdbc.CacheJdbcPojoStoreFactory;
 import org.apache.ignite.cache.store.jdbc.JdbcType;
 import org.apache.ignite.cache.store.jdbc.JdbcTypeField;
-import org.apache.ignite.cache.store.jdbc.dialect.MySQLDialect;
+import org.apache.ignite.cache.store.jdbc.dialect.${db.dialect};
 import org.apache.ignite.configuration.CacheConfiguration;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import ${db.datasourcePackage}.${db.datasourceClass};
 
 public class ${table.classname}CacheConfiguration<K, V> extends CacheConfiguration<${table.keytype}, ${table.classname}> {
     private static final long serialVersionUID = 0L;
@@ -31,20 +32,18 @@ public class ${table.classname}CacheConfiguration<K, V> extends CacheConfigurati
 		setWriteThrough(true);
 
 		CacheJdbcPojoStoreFactory<${table.keytype}, ${table.classname}> factory = new CacheJdbcPojoStoreFactory<>();
-		factory.setDialect(new MySQLDialect());
+		factory.setDialect(new ${db.dialect}());
 		factory.setDataSourceFactory((Factory<DataSource>) () -> {
-			MysqlDataSource mysqlDataSrc = new MysqlDataSource();
-			mysqlDataSrc.setURL("jdbc:mysql://${db.hostname}:${db.port?long?c}/${db.db}");
-			mysqlDataSrc.setUser("${db.username}");
-			mysqlDataSrc.setPassword("${db.password}");
-			return mysqlDataSrc;
+			${db.datasourceClass} dataSrc = new ${db.datasourceClass}();
+			dataSrc.setURL("${db.jdbcUrl?no_esc}");
+			return dataSrc;
 		});
 
 		JdbcType ${table.name}Type = new JdbcType();
 		${table.name}Type.setCacheName("${table.name}");
 		${table.name}Type.setKeyType(${table.keytype}.class);
 		${table.name}Type.setValueType(${table.classname}.class);
-		${table.name}Type.setDatabaseTable("${table.name}");
+		${table.name}Type.setDatabaseTable("${db.schema}.${table.name}");
 
 		${table.name}Type.setKeyFields(new JdbcTypeField(java.sql.Types.${table.keysqltype}, "${table.keyname}", Integer.class, "${table.keyname}"));
 
