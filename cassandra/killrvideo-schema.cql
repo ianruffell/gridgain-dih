@@ -181,7 +181,7 @@ CREATE TABLE video_event (
    userid uuid,
    preview_image_location text static,
    event varchar,
-   event_timestamp timeuuid,
+   event_timestamp text,
    video_timestamp bigint,
    PRIMARY KEY ((videoid,userid),event_timestamp,event)
 ) WITH CLUSTERING ORDER BY (event_timestamp DESC,event ASC);
