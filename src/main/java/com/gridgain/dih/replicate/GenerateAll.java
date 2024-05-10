@@ -18,7 +18,7 @@ import freemarker.template.TemplateExceptionHandler;
 public class GenerateAll {
 
 	private final Configuration freemarkerCfg;
-	private final Metadata[] metadatas = { new MySqlMetadata(), new PostgresMetadata() };
+	private final Metadata[] metadatas = { new CassandraMetadata(), new MySqlMetadata(), new PostgresMetadata() };
 
 	public static void main(String[] args) throws Exception {
 		GenerateAll generateAll = new GenerateAll();
@@ -58,6 +58,13 @@ public class GenerateAll {
 				Template pojo = freemarkerCfg.getTemplate("pojo.ftlh");
 				out = new FileWriter(new File(outputPath + "/" + table.getClassname() + ".java"));
 				pojo.process(root, out);
+
+				if (metadata.getDB().getType().equals(DB.DBType.CASSANDRA.name())) {
+					Template ps = freemarkerCfg.getTemplate("persistence_settings.ftlh");
+					out = new FileWriter(
+							new File("src/main/resources/" + table.getClassname() + "_persistence_settings.xml"));
+					ps.process(root, out);
+				}
 			}
 		}
 

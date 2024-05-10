@@ -6,17 +6,21 @@ public class Column {
 
 	enum TypeMapping {
 
-		CHAR("String", "VARCHAR"), INT("Integer", "INTEGER"), SMALLINT("Integer", "INTEGER"),
-		DECIMAL("Double", "DECIMAL"), ENUM("String", "VARCHAR"), varchar("String", "VARCHAR"),
-		bpchar("String", "VARCHAR"), numeric("Integer", "INTEGER"), int4("Integer", "INTEGER"),
-		timestamp("Timestamp", "TIMESTAMP");
+		CHAR("String", "VARCHAR", "java.lang"), INT("Integer", "INTEGER", "java.lang"),
+		SMALLINT("Integer", "INTEGER", "java.lang"), DECIMAL("Double", "DECIMAL", "java.lang"),
+		ENUM("String", "VARCHAR", "java.lang"), VARCHAR("String", "VARCHAR", "java.lang"),
+		BPCHAR("String", "VARCHAR", "java.lang"), NUMERIC("Integer", "INTEGER", "java.lang"),
+		INT4("Integer", "INTEGER", "java.lang"), TIMESTAMP("Timestamp", "TIMESTAMP", "java.util"),
+		TEXT("String", "VARCHAR", "java.lang");
 
 		private final String igniteType;
-		private String sqlType;
+		private final String sqlType;
+		private final String packageName;
 
-		private TypeMapping(String igniteType, String sqlType) {
+		private TypeMapping(String igniteType, String sqlType, String packageName) {
 			this.igniteType = igniteType;
 			this.sqlType = sqlType;
+			this.packageName = packageName;
 		}
 
 		public String getIgniteType() {
@@ -25,6 +29,10 @@ public class Column {
 
 		public String getSqlType() {
 			return sqlType;
+		}
+
+		public String getPackageName() {
+			return packageName;
 		}
 
 	}
@@ -52,11 +60,11 @@ public class Column {
 	}
 
 	public String getIgnitetype() {
-		return TypeMapping.valueOf(type).getIgniteType();
+		return TypeMapping.valueOf(type.toUpperCase()).getIgniteType();
 	}
 
 	public String getSqltype() {
-		return TypeMapping.valueOf(type).getSqlType();
+		return TypeMapping.valueOf(type.toUpperCase()).getSqlType();
 	}
 
 	public String getType() {

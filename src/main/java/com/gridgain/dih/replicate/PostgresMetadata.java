@@ -3,7 +3,7 @@ package com.gridgain.dih.replicate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class PostgresMetadata extends Metadata {
+public class PostgresMetadata extends JdbcMetadata {
 	public static final String DB_HOSTNAME = "localhost";
 	public static final int DB_PORT = 5432;
 	public static final String DB_DB = "postgres";
@@ -25,7 +25,8 @@ public class PostgresMetadata extends Metadata {
 
 	@Override
 	public DB getDB() {
-		return new DB(getJdbcUrl(), "BasicJdbcDialect", "PGSimpleDataSource", "org.postgresql.ds", "cd");
+		return new DB(getJdbcUrl(), DB.DBType.JDBC, "BasicJdbcDialect", "PGSimpleDataSource", "org.postgresql.ds",
+				"cd");
 	}
 
 	@Override

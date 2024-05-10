@@ -1,4 +1,4 @@
-package com.gridgain.gen.model;
+package ${package};
 
 import org.apache.ignite.cache.query.annotations.QuerySqlField;
 import java.sql.Timestamp;
@@ -10,6 +10,8 @@ public class ${table.classname} {
 	private ${column.ignitetype} ${column.name};
 	</#list>
 
+	public ${table.classname} () {
+	}
 
     public ${table.classname} (<#list table.columns as column>${column.ignitetype} ${column.name}<#sep>, </#sep></#list>) {
     	<#list table.columns as column>

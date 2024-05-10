@@ -8,6 +8,7 @@ import org.apache.commons.text.CaseUtils;
 public class Table {
 	private final String name;
 	private final String keyname;
+	private final String keyPackage;
 	private final String keytype;
 	private final String keysqltype;
 	private final List<Column> columns = new ArrayList<>();
@@ -15,6 +16,15 @@ public class Table {
 	public Table(String name, String keyname, String keytype, String keysqltype) {
 		this.name = name;
 		this.keyname = keyname;
+		this.keytype = keytype;
+		this.keysqltype = keysqltype;
+		this.keyPackage = null;
+	}
+
+	public Table(String name, String keyname, String keyPackage, String keytype, String keysqltype) {
+		this.name = name;
+		this.keyname = keyname;
+		this.keyPackage = keyPackage;
 		this.keytype = keytype;
 		this.keysqltype = keysqltype;
 	}
@@ -55,6 +65,10 @@ public class Table {
 	public String toString() {
 		return "Table [name=" + name + ", keyname=" + keyname + ", keytype=" + keytype + ", keysqltype=" + keysqltype
 				+ ", columns=" + columns + "]";
+	}
+
+	public String getKeyPackage() {
+		return keyPackage;
 	}
 
 }

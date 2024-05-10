@@ -3,7 +3,7 @@ package com.gridgain.dih.replicate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class MySqlMetadata extends Metadata
+public class MySqlMetadata extends JdbcMetadata
 {
 
 	public static final String DB_HOSTNAME = "localhost";
@@ -22,7 +22,7 @@ public class MySqlMetadata extends Metadata
 
 	@Override
 	public DB getDB() {
-		return new DB(getJdbcUrl(), "MySQLDialect", "MysqlDataSource", "com.mysql.cj.jdbc", DB_SCHEMA);
+		return new DB(getJdbcUrl(), DB.DBType.JDBC, "MySQLDialect", "MysqlDataSource", "com.mysql.cj.jdbc", DB_SCHEMA);
 	}
 
 	@Override
