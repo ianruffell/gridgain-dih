@@ -7,17 +7,17 @@
 		comment = 'Cache test'
 		AND read_repair_chance = 0.2
 	</tableOption>
-	<keyPersistence class="java.lang.String" strategy="Primitive" column="name"
+	<keyPersistence class="java.lang.Integer" strategy="Primitive" column="id"
 		/>
 	<valuePersistence class="com.gridgain.gen.model.Astronauts" strategy="POJO">
 		<!-- Mapping from POJO field to Cassandra table column -->
-		<field name="name" />
 		<field name="alma_mater" />
 		<field name="birthplace" />
 		<field name="dob" />
 		<field name="gender" />
 		<field name="group" />
 		<field name="missions" />
+		<field name="name" />
 		<field name="spaceflight_hours" />
 		<field name="spaceflights" />
 		<field name="spacewalk_hours" />

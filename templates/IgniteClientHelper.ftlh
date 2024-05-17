@@ -14,6 +14,13 @@ public class IgniteClientHelper implements AutoCloseable {
 	public static final String SQL_SCHEMA = "${cacheschema}";
 
 	private final Ignite ignite;
+	
+	<#list tables as table>
+	IgniteCache<${table.keytype}, ${table.classname}> ${table.name}Cache;
+	<#sep>
+	
+	</#sep>
+	</#list>
 
 	public static void main(String args[]) throws Exception {
 		try (IgniteClientHelper ich = new IgniteClientHelper()) {
@@ -43,13 +50,31 @@ public class IgniteClientHelper implements AutoCloseable {
 		}
 		System.out.println("Creating Caches...");
     	<#list tables as table>
-		IgniteCache<${table.keytype}, ${table.classname}> ${table.name}Cache = ignite.getOrCreateCache(new ${table.classname}CacheConfiguration<${table.keytype}, ${table.classname}>());
-		${table.name}Cache.loadCache(null);
+		${table.name}Cache = ignite.getOrCreateCache(new ${table.classname}CacheConfiguration<${table.keytype}, ${table.classname}>());
 		<#sep>
 		
 		</#sep>
 		</#list>
+		
+		if (destroyCaches) {
+			System.out.println("Loading Caches...");
+    		<#list tables as table>
+			${table.name}Cache.loadCache(null);
+			<#sep>
+			
+			</#sep>
+			</#list>
+		}
 	}
+	
+	<#list tables as table>
+	public IgniteCache<${table.keytype}, ${table.classname}> get${table.classname}Cache() {
+		return ${table.name}Cache;
+	}
+	<#sep>
+	
+	</#sep>
+	</#list>
 
 	public Ignite getIgnite() {
 		return ignite;

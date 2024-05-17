@@ -1,5 +1,5 @@
 # gridgain-dih
-GridGain Digital Integration Hub
+GridGain Digital Integration Hub is intended to be used as an example of how to implement a Digital Integration Hub connecting to various 3rd party data sources.
 
 1. Start DB's in Docker & Load Data
 
@@ -11,6 +11,9 @@ cd postgres
 ./docker.sh
 
 cd cassandra
+./docker.sh
+
+cd mongodb
 ./docker.sh
 ```
 

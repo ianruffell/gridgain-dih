@@ -1,13 +1,27 @@
 package com.gridgain.dih.app;
 
+import org.apache.ignite.Ignite;
+import org.apache.ignite.IgniteException;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.lifecycle.LifecycleAware;
 
-public class IgniteServer {
+public class IgniteServer implements LifecycleAware {
+	private static Ignite ignite;
+
 	public static void main(String[] args) {
-
 		System.setProperty("IGNITE_QUIET", "true");
+		System.setProperty("java.net.preferIPv4Stack", "true");
+		new IgniteServer().start();
+	}
 
+	@Override
+	public void start() throws IgniteException {
 		DemoConfiguration cfg = new DemoConfiguration();
-		Ignition.start(cfg);
+		ignite = Ignition.start(cfg);
+	}
+
+	@Override
+	public void stop() throws IgniteException {
+		ignite.close();
 	}
 }

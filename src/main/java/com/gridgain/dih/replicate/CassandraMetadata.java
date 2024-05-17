@@ -58,15 +58,16 @@ public class CassandraMetadata extends Metadata {
 				ColumnMetadata keyCol = tableMetadata.getPrimaryKey().get(0);
 				TypeMapping keyType = Column.TypeMapping.valueOf(keyCol.getType().asCql(false, true).toUpperCase());
 				Table table = new Table(tableName, keyCol.getName().asCql(true), keyType.getPackageName(),
-						keyType.getIgniteType(),
-						keyType.getSqlType());
+						keyType.getIgniteType(), keyType.getSqlType());
 				Map<CqlIdentifier, ColumnMetadata> columns = tableMetadata.getColumns();
 				Iterator<CqlIdentifier> it3 = columns.keySet().iterator();
 				while (it3.hasNext()) {
 					ColumnMetadata columnMetadata = columns.get(it3.next());
-					Column column = new Column(columnMetadata.getName().asCql(true),
-							columnMetadata.getType().asCql(false, true).toUpperCase(), true);
-					table.addColumn(column);
+					if (!columnMetadata.getName().asCql(true).equals(keyCol.getName().asCql(true))) {
+						Column column = new Column(columnMetadata.getName().asCql(true),
+								columnMetadata.getType().asCql(false, true).toUpperCase(), true);
+						table.addColumn(column);
+					}
 				}
 				tables.add(table);
 			}
