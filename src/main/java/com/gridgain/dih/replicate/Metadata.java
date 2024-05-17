@@ -10,7 +10,6 @@ public abstract class Metadata {
 	public static final String CACHE_MODE = "PARTITIONED";
 	public static final String CACHE_SCHEMA = "PUBLIC";
 
-
 	public abstract DB getDB();
 
 	public abstract String getMetadataForTable();

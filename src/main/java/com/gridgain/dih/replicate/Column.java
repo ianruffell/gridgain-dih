@@ -7,11 +7,12 @@ public class Column {
 	enum TypeMapping {
 
 		CHAR("String", "VARCHAR", "java.lang"), INT("Integer", "INTEGER", "java.lang"),
-		SMALLINT("Integer", "INTEGER", "java.lang"), DECIMAL("Double", "DECIMAL", "java.lang"),
-		ENUM("String", "VARCHAR", "java.lang"), VARCHAR("String", "VARCHAR", "java.lang"),
-		BPCHAR("String", "VARCHAR", "java.lang"), NUMERIC("Integer", "INTEGER", "java.lang"),
-		INT4("Integer", "INTEGER", "java.lang"), TIMESTAMP("Timestamp", "TIMESTAMP", "java.util"),
-		TEXT("String", "VARCHAR", "java.lang");
+		INTEGER("Integer", "INTEGER", "java.lang"), SMALLINT("Integer", "INTEGER", "java.lang"),
+		DECIMAL("Double", "DECIMAL", "java.lang"), ENUM("String", "VARCHAR", "java.lang"),
+		VARCHAR("String", "VARCHAR", "java.lang"), BPCHAR("String", "VARCHAR", "java.lang"),
+		NUMERIC("Integer", "INTEGER", "java.lang"), INT4("Integer", "INTEGER", "java.lang"),
+		TIMESTAMP("Timestamp", "TIMESTAMP", "java.util"), TEXT("String", "VARCHAR", "java.lang"),
+		STRING("String", "VARCHAR", "java.lang");
 
 		private final String igniteType;
 		private final String sqlType;
@@ -52,7 +53,7 @@ public class Column {
 	}
 
 	public String getName() {
-		return CaseUtils.toCamelCase(name, false, null);
+		return name;
 	}
 
 	public void setName(String name) {

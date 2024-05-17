@@ -26,6 +26,8 @@ public class IgniteClientHelper implements AutoCloseable {
 	}
 
 	public IgniteClientHelper(boolean destroyCaches) throws Exception {
+		System.setProperty("IGNITE_QUIET", "true");
+
 		IgniteConfiguration cfg = new DemoConfiguration();
 		cfg.setClientMode(true);
 

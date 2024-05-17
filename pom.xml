@@ -10,7 +10,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<ignite.version>2.16.0</ignite.version>
-		<gridgain.version>8.9.4</gridgain.version>
+		<gridgain.version>8.9.5</gridgain.version>
+		<spark.version>2.4.0</spark.version>
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
@@ -58,6 +59,7 @@
 					<artifactId>ignite-cassandra-serializers</artifactId>
 					<version>${gridgain.version}</version>
 				</dependency>
+
 			</dependencies>
 		</profile>
 		<profile>
@@ -139,6 +141,16 @@
 			<groupId>com.datastax.oss</groupId>
 			<artifactId>java-driver-core</artifactId>
 			<version>4.17.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.12.14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
 		</dependency>
 	</dependencies>
 	<build>

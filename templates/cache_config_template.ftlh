@@ -21,6 +21,9 @@ import org.apache.ignite.cache.store.cassandra.CassandraCacheStoreFactory;
 import org.apache.ignite.cache.store.cassandra.datasource.DataSource;
 import org.apache.ignite.cache.store.cassandra.persistence.KeyValuePersistenceSettings;
 </#if>
+<#if db.type == "MONGODB">
+import javax.cache.configuration.FactoryBuilder;
+</#if>
 <#if db.type == "JDBC">
 import org.apache.ignite.cache.store.jdbc.CacheJdbcPojoStoreFactory;
 import org.apache.ignite.cache.store.jdbc.JdbcType;
@@ -41,6 +44,7 @@ public class ${table.classname}CacheConfiguration<K, V> extends CacheConfigurati
         setIndexedTypes(${table.keytype}.class, ${table.classname}.class);
         setCacheMode(${cachemode});
         setSqlSchema("${cacheschema}");
+		setBackups(1);
 		setReadThrough(true);
 		setWriteThrough(true);
 
@@ -103,5 +107,10 @@ public class ${table.classname}CacheConfiguration<K, V> extends CacheConfigurati
 
 		setCacheStoreFactory(factory);
 		</#if>
+		
+		 <#if db.type == "MONGODB">
+		setCacheStoreFactory(FactoryBuilder.factoryOf(${table.classname}MongoCacheStore.class));
+		</#if>
+
     }
 }

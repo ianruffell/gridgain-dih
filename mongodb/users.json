@@ -182,4 +182,4 @@
 {"_id":{"$oid":"59b99e09cfa9a34dcd78866b"},"name":"Anthony Hurst","email":"anthony_hurst@fakegmail.com","password":"$2b$12$9M2cew6pOM.35LY474rMkeVD4WxfvF2lDtVg60jZrlMdbaexrIfwK"}
 {"_id":{"$oid":"59b99e09cfa9a34dcd78866c"},"name":"Ashlee Hart","email":"ashlee_hart@fakegmail.com","password":"$2b$12$S707opDk6HG/Lqk7MaHeQ.1N36I6kEUOhRv/RQEHZUbw89xAuO6Ju"}
 {"_id":{"$oid":"5db1c37e4a68c31f10cf0a98"},"name":"Magical Mr. Mistoffelees","email":"magicz@cats.com","password":"somehashedpw"}
-{"_id":{"$oid":"5db1c37e4a68c31f10cf0a9f"},"name":"foo","email":"foobaz@bar.com","password":"foobar","preferences":{}}
+{"_id":{"$oid":"5db1c37e4a68c31f10cf0a9f"},"name":"foo","email":"foobaz@bar.com","password":"foobar"}

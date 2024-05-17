@@ -2,7 +2,7 @@ package com.gridgain.dih.replicate;
 
 public class DB {
 	enum DBType {
-		JDBC, CASSANDRA
+		JDBC, CASSANDRA, MONGODB
 	}
 
 	public final String jdbcUrl;

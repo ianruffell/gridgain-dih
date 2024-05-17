@@ -34,7 +34,7 @@ public class Table {
 	}
 
 	public String getName() {
-		return name;
+		return name.toLowerCase();
 	}
 
 	public String getKeyname() {

@@ -18,7 +18,8 @@ import freemarker.template.TemplateExceptionHandler;
 public class GenerateAll {
 
 	private final Configuration freemarkerCfg;
-	private final Metadata[] metadatas = { new CassandraMetadata(), new MySqlMetadata(), new PostgresMetadata() };
+	private final Metadata[] metadatas = { new MongoDBMetadata(), new CassandraMetadata(), new MySqlMetadata(),
+			new PostgresMetadata() };
 
 	public static void main(String[] args) throws Exception {
 		GenerateAll generateAll = new GenerateAll();
@@ -29,6 +30,7 @@ public class GenerateAll {
 		freemarkerCfg = new Configuration(Configuration.VERSION_2_3_32);
 		freemarkerCfg.setDirectoryForTemplateLoading(new File("templates"));
 		freemarkerCfg.setDefaultEncoding("UTF-8");
+		freemarkerCfg.setNumberFormat("computer");
 		freemarkerCfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		freemarkerCfg.setLogTemplateExceptions(true);
 		freemarkerCfg.setWrapUncheckedExceptions(true);
@@ -64,6 +66,11 @@ public class GenerateAll {
 					out = new FileWriter(
 							new File("src/main/resources/" + table.getClassname() + "_persistence_settings.xml"));
 					ps.process(root, out);
+				} else if (metadata.getDB().getType().equals(DB.DBType.MONGODB.name())) {
+					Template ps = freemarkerCfg.getTemplate("MongoCacheStore.ftlh");
+					out = new FileWriter(new File(outputPath + "/" + table.getClassname() + "MongoCacheStore.java"));
+					ps.process(root, out);
+
 				}
 			}
 		}
