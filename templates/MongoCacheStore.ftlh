@@ -104,6 +104,7 @@ public class ${table.classname}MongoCacheStore extends CacheStoreAdapter<String,
 		idField.set(${table.name}, id);
 
 		ObjectMapper mapper = new ObjectMapper();
+		@SuppressWarnings("unchecked")
 		HashMap<String, Object> map = mapper.readValue(document.toJson(), HashMap.class);
 		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {

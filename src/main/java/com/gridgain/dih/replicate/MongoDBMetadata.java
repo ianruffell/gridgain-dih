@@ -12,7 +12,6 @@ import org.bson.Document;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -25,7 +24,6 @@ public class MongoDBMetadata extends Metadata {
 	public static final String DB_DB = "mflix";
 	public static final String DB_USERNAME = "root";
 	public static final String DB_PASSWORD = "password";
-	private Gson gson;
 
 	public static void main(String[] args) throws Exception {
 
@@ -37,7 +35,6 @@ public class MongoDBMetadata extends Metadata {
 	}
 
 	public MongoDBMetadata() {
-		gson = new Gson();
 	}
 
 	@Override
@@ -76,6 +73,7 @@ public class MongoDBMetadata extends Metadata {
 		table.addColumn(new Column("id", "String", false));
 
 		ObjectMapper mapper = new ObjectMapper();
+		@SuppressWarnings("unchecked")
 		HashMap<String, Object> map = mapper.readValue(json, HashMap.class);
 		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {

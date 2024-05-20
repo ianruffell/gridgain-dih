@@ -1,7 +1,9 @@
 package ${package};
 
 import org.apache.ignite.cache.query.annotations.QuerySqlField;
+<#if table.containsTimestamp == true>
 import java.sql.Timestamp;
+</#if>
 
 public class ${table.classname} {
 

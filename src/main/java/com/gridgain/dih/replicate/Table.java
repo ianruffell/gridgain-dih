@@ -49,6 +49,10 @@ public class Table {
 		return keysqltype;
 	}
 
+	public String getKeyPackage() {
+		return keyPackage;
+	}
+
 	public List<Column> getColumns() {
 		return columns;
 	}
@@ -61,14 +65,23 @@ public class Table {
 		columns.add(column);
 	}
 
+	public boolean getContainsTimestamp() {
+		boolean ret = false;
+
+		for (Column col : columns) {
+			if (col.getSqltype().equals(Column.TypeMapping.TIMESTAMP.getSqlType())) {
+				ret = true;
+				break;
+			}
+		}
+
+		return ret;
+	}
+
 	@Override
 	public String toString() {
 		return "Table [name=" + name + ", keyname=" + keyname + ", keytype=" + keytype + ", keysqltype=" + keysqltype
 				+ ", columns=" + columns + "]";
-	}
-
-	public String getKeyPackage() {
-		return keyPackage;
 	}
 
 }

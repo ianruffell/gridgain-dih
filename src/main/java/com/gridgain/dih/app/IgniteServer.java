@@ -16,8 +16,12 @@ public class IgniteServer implements LifecycleAware {
 
 	@Override
 	public void start() throws IgniteException {
-		DemoConfiguration cfg = new DemoConfiguration();
-		ignite = Ignition.start(cfg);
+		try {
+			DemoConfiguration cfg = new DemoConfiguration();
+			ignite = Ignition.start(cfg);
+		} catch (Exception e) {
+			throw new IgniteException(e);
+		}
 	}
 
 	@Override

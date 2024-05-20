@@ -7,7 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
+<#if table.containsTimestamp == true>
 import java.sql.Timestamp;
+</#if>
 
 import javax.cache.configuration.Factory;
 import javax.sql.DataSource;
