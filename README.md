@@ -21,10 +21,26 @@ cd mongodb
 
 	This will generate POJOs, CacheConfiguration and IgniteClientHelper classes in com.gridgain.dih.gen package
 
-3. Start a server node
+3. Build Kafka Connect GridGain image
+
+```sh
+cd kafka
+export KAFKA_VERSION=latest
+docker build -t kafka-connect-gridgain .
+```
+
+4. Deploy Kafka to Docker
+
+```sh
+docker-compose -f docker-compose.yml up
+```
+
+Kafka Control Center is enabled so you can monitor Kafka cluster with http://localhost:9021/
+
+5. Start a server node
 
 	com.gridgain.dih.app.IgniteServer
 
-4. Start the Client
+6. Start the Client
 
 	com.gridgain.dih.gen.IgniteClientHelper
