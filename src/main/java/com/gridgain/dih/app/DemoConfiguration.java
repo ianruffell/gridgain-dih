@@ -6,6 +6,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import org.apache.ignite.binary.BinaryBasicNameMapper;
+import org.apache.ignite.configuration.BinaryConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.plugin.PluginConfiguration;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
@@ -31,6 +33,12 @@ public class DemoConfiguration extends IgniteConfiguration {
 		tcpDiscoverySpi.setIpFinder(tcpDiscoveryVmIpFinder);
 
 		setDiscoverySpi(tcpDiscoverySpi);
+
+		BinaryConfiguration binaryConfiguration = new BinaryConfiguration();
+		BinaryBasicNameMapper nameMapper = new BinaryBasicNameMapper();
+		nameMapper.setSimpleName(true);
+		binaryConfiguration.setNameMapper(nameMapper);
+		setBinaryConfiguration(binaryConfiguration);
 
 		// Add license file for EE or UE
 		try {
