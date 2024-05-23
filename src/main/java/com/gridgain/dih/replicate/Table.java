@@ -41,6 +41,10 @@ public class Table {
 		return keyname;
 	}
 
+	public String getKeynameLc() {
+		return keyname.toLowerCase();
+	}
+
 	public String getKeytype() {
 		return keytype;
 	}

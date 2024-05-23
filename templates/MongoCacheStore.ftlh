@@ -1,4 +1,4 @@
-package ${package};
+package ${package_pojo};
 
 import static com.mongodb.client.model.Filters.eq;
 

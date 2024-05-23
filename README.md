@@ -106,6 +106,16 @@ Kafka Control Center is enabled so you can monitor Kafka cluster with http://loc
 	connect-standalone etc/kafka/connect-standalone.properties ~/git/gridgain-dih/kafka/gridgain-kafka-connect-sink.properties
 	```
 
-12. Start the Client
+12. Start the Client, this will load all the data from all the 3rd party data sources
 
-	com.gridgain.dih.gen.IgniteClientHelper
+	```sh
+	com.gridgain.dih.gen.app.IgniteClientHelper
+	```
+	
+13. Start the REST API server
+
+GET, POST & DELETE methods have been created for each table which takes a parameter of the object id, POST method does a put to the cache taking the body as Json of the object
+
+	```sh
+	com.gridgain.dih.gen.app.ApiServer
+	```

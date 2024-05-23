@@ -1,4 +1,4 @@
-package ${package};
+package ${package_pojo};
 
 import static org.apache.ignite.cache.CacheMode.${cachemode};
 

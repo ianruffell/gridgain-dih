@@ -9,7 +9,7 @@
 	</tableOption>
 	<keyPersistence class="${table.keyPackage}.${table.keytype}" strategy="Primitive" column="${table.keyname}"
 		/>
-	<valuePersistence class="com.gridgain.gen.model.${table.classname}" strategy="POJO">
+	<valuePersistence class="${package_pojo}.${table.classname}" strategy="POJO">
 		<!-- Mapping from POJO field to Cassandra table column -->
 		<#list table.columns as column>
 		<field name="${column.name}" />

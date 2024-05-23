@@ -1,4 +1,4 @@
-package ${package};
+package ${package_pojo};
 
 import org.apache.ignite.cache.query.annotations.QuerySqlField;
 <#if table.containsTimestamp == true>

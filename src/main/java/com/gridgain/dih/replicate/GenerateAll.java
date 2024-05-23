@@ -40,8 +40,12 @@ public class GenerateAll {
 
 	public void run() throws Exception {
 		Map<String, Object> root = metadatas[0].getTemplateModel();
-		String outputPath = metadatas[0].getOutputPath();
-		FileUtils.forceMkdir(new File(outputPath));
+		String pojoOutputPath = metadatas[0].getPojoOutputPath();
+		FileUtils.forceMkdir(new File(pojoOutputPath));
+		String restOutputPath = metadatas[0].getRestOutputPath();
+		FileUtils.forceMkdir(new File(restOutputPath));
+		String appOutputPath = metadatas[0].getAppOutputPath();
+		FileUtils.forceMkdir(new File(appOutputPath));
 
 		List<Table> tables = new ArrayList<>();
 		for (Metadata metadata : metadatas) {
@@ -54,12 +58,16 @@ public class GenerateAll {
 
 				Template cacheConfig = freemarkerCfg.getTemplate("cache_config_template.ftlh");
 				Writer out = new FileWriter(
-						new File(outputPath + "/" + table.getClassname() + "CacheConfiguration.java"));
+						new File(pojoOutputPath + "/" + table.getClassname() + "CacheConfiguration.java"));
 				cacheConfig.process(root, out);
 
 				Template pojo = freemarkerCfg.getTemplate("pojo.ftlh");
-				out = new FileWriter(new File(outputPath + "/" + table.getClassname() + ".java"));
+				out = new FileWriter(new File(pojoOutputPath + "/" + table.getClassname() + ".java"));
 				pojo.process(root, out);
+
+				Template restRes = freemarkerCfg.getTemplate("RestResource.ftlh");
+				out = new FileWriter(new File(restOutputPath + "/" + table.getClassname() + "Resource.java"));
+				restRes.process(root, out);
 
 				if (metadata.getDB().getType().equals(DB.DBType.CASSANDRA.name())) {
 					Template ps = freemarkerCfg.getTemplate("persistence_settings.ftlh");
@@ -68,7 +76,8 @@ public class GenerateAll {
 					ps.process(root, out);
 				} else if (metadata.getDB().getType().equals(DB.DBType.MONGODB.name())) {
 					Template ps = freemarkerCfg.getTemplate("MongoCacheStore.ftlh");
-					out = new FileWriter(new File(outputPath + "/" + table.getClassname() + "MongoCacheStore.java"));
+					out = new FileWriter(
+							new File(pojoOutputPath + "/" + table.getClassname() + "MongoCacheStore.java"));
 					ps.process(root, out);
 
 				}
@@ -78,8 +87,12 @@ public class GenerateAll {
 		root.put("tables", tables);
 
 		Template ich = freemarkerCfg.getTemplate("IgniteClientHelper.ftlh");
-		Writer out = new FileWriter(new File(outputPath + "/IgniteClientHelper.java"));
+		Writer out = new FileWriter(new File(appOutputPath + "/IgniteClientHelper.java"));
 		ich.process(root, out);
+
+		Template as = freemarkerCfg.getTemplate("ApiServer.ftlh");
+		out = new FileWriter(new File(appOutputPath + "/ApiServer.java"));
+		as.process(root, out);
 
 	}
 

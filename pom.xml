@@ -13,6 +13,7 @@
 		<gridgain.version>8.9.5</gridgain.version>
 		<spark.version>2.4.0</spark.version>
 		<kafka.version>7.5.0</kafka.version>
+		<jersey.version>2.43</jersey.version>
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
@@ -111,6 +112,18 @@
 		</profile>
 	</profiles>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.glassfish.jersey</groupId>
+				<artifactId>jersey-bom</artifactId>
+				<version>${jersey.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.gridgain</groupId>
@@ -181,6 +194,18 @@
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-json-serializer</artifactId>
 			<version>${kafka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-binding</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

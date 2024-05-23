@@ -1,4 +1,4 @@
-package ${package};
+package ${package_app};
 
 import static org.apache.ignite.cluster.ClusterState.ACTIVE;
 
@@ -8,6 +8,11 @@ import org.apache.ignite.Ignition;
 import org.apache.ignite.configuration.IgniteConfiguration;
 
 import com.gridgain.dih.app.DemoConfiguration;
+
+<#list tables as table>
+import ${package_pojo}.${table.classname};
+import ${package_pojo}.${table.classname}CacheConfiguration;
+</#list>
 
 public class IgniteClientHelper implements AutoCloseable {
 
