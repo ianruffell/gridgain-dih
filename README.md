@@ -36,23 +36,23 @@ Kafka Control Center is enabled so you can monitor Kafka cluster with http://loc
 ## Setup Kafka Connect
 4. Download binary package
 
-    ```bash
+    ```sh
     curl -O https://packages.confluent.io/archive/7.5/confluent-7.5.0.tar.gz
     ```
 5. Extract contents
 
-    ```bash
+    ```sh
     tar -xvzf confluent-7.5.0.tar.gz
     ```
 6. Set Environment
     
-    ```bash
+    ```sh
     export CONFLUENT_HOME=.../confluent-7.5.0
     export PATH=$PATH:$CONFLUENT_HOME/bin
     ```
 7. Install GridGain Kafka Connector
     
-    ```bash
+    ```sh
     confluent-hub install gridgain/gridgain-kafka-connect:8.9.5
     The component can be installed in any of the following Confluent Platform installations:
      1. .../confluent-7.5.0 (based on $CONFLUENT_HOME)
@@ -87,17 +87,25 @@ Kafka Control Center is enabled so you can monitor Kafka cluster with http://loc
 
     ```
 
-8. Start the connector with GridGain connector enabled
+9. Start a server node
 
-	```bash
+	```sh
+	com.gridgain.dih.app.IgniteServer
+	```
+
+10. Run the Kafka data generator
+
+	```sh
+	com.gridgain.dih.kafka.KafkaCsvStockTicker
+	```
+	
+11. Start the connector with GridGain connector enabled
+
+	```sh
 	export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true"
 	connect-standalone etc/kafka/connect-standalone.properties ~/git/gridgain-dih/kafka/gridgain-kafka-connect-sink.properties
 	```
 
-9. Start a server node
-
-	com.gridgain.dih.app.IgniteServer
-
-10. Start the Client
+12. Start the Client
 
 	com.gridgain.dih.gen.IgniteClientHelper
