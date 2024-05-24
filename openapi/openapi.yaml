@@ -45,7 +45,7 @@ paths:
               $ref: '#/components/schemas/City'
       responses:
         '200':
-          description: pet response
+          description: city response
           content:
             application/json:
               schema:
@@ -99,6 +99,5 @@ components:
       properties:
         code:
           type: integer
-          format: int32
         message:
           type: string

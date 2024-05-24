@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import ${package_pojo}.${table.classname};
 import ${package_app}.IgniteClientHelper;
 
@@ -23,33 +22,24 @@ public class ${table.classname}Resource {
 	IgniteClientHelper ich;
 
 	private static final ObjectMapper mapper = new ObjectMapper();
-	private static final ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
 	@GET
-	public String get${table.classname}(@PathParam("id") ${table.keytype} ${table.keynameLc}) throws JsonProcessingException {
-		String json = "{}";
+	public ${table.classname} get${table.classname}(@PathParam("${table.keynameLc}") ${table.keytype} ${table.keynameLc}) throws JsonProcessingException {
 		${table.classname} ${table.name} = ich.get${table.classname}Cache().get(${table.keynameLc});
-		if (${table.name} != null) {
-			json = ow.writeValueAsString(${table.name});
-		}
-		return json;
+		return ${table.name};
 	}
 
 	@POST
 	@Consumes("application/json")
-	@Produces("text/html")
-	public String add${table.classname}(@PathParam("${table.keynameLc}") ${table.keytype} ${table.keynameLc}, String json) throws JsonProcessingException {
-		System.out.println("");
-		${table.classname} value = mapper.readValue(json, ${table.classname}.class);
-		ich.get${table.classname}Cache().put(${table.keynameLc}, value);
+	public ${table.classname} add${table.classname}(@PathParam("${table.keynameLc}") ${table.keytype} ${table.keynameLc}, String json) throws JsonProcessingException {
+		${table.classname} ${table.name} = mapper.readValue(json, ${table.classname}.class);
+		ich.get${table.classname}Cache().put(${table.keynameLc}, ${table.name});
 
-		return "ok";
+		return ${table.name};
 	}
 
 	@DELETE
-	@Produces("text/html")
-	public String delete${table.classname}(@PathParam("${table.keynameLc}") ${table.keytype} ${table.keynameLc}) {
+	public void delete${table.classname}(@PathParam("${table.keynameLc}") ${table.keytype} ${table.keynameLc}) {
 		ich.get${table.classname}Cache().remove(${table.keynameLc});
-		return "ok";
 	}
 }
