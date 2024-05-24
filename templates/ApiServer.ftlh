@@ -8,6 +8,8 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import com.gridgain.dih.kafka.KafkaCacheHelper;
+
 public class ApiServer {
 
 	// Base URI the Grizzly HTTP server will listen on
@@ -15,7 +17,7 @@ public class ApiServer {
 
 	public static HttpServer startServer() {
 		// create a resource config that scans for JAX-RS resources and providers
-		final ResourceConfig rc = new ResourceConfig().packages("${package_rest}");
+		final ResourceConfig rc = new ResourceConfig().packages("${package_rest}", "com.gridgain.dih.kafka.rest");
 		rc.register(new IgniteBinder());
 
 		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
@@ -37,7 +39,9 @@ public class ApiServer {
 		@Override
 		protected void configure() {
 			try {
-				bind(new IgniteClientHelper(false)).to(IgniteClientHelper.class);
+				IgniteClientHelper igniteClientHelper = new IgniteClientHelper(false);
+				bind(igniteClientHelper).to(IgniteClientHelper.class);
+				bind(new KafkaCacheHelper(igniteClientHelper.getIgnite(), false)).to(KafkaCacheHelper.class);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

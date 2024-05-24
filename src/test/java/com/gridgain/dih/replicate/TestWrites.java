@@ -2,9 +2,9 @@ package com.gridgain.dih.replicate;
 
 import java.sql.Timestamp;
 
+import com.gridgain.gen.app.IgniteClientHelper;
 import com.gridgain.gen.model.Astronauts;
 import com.gridgain.gen.model.City;
-import com.gridgain.gen.model.IgniteClientHelper;
 import com.gridgain.gen.model.Members;
 import com.gridgain.gen.model.Theaters;
 

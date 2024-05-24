@@ -19,11 +19,15 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
+import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import com.github.javafaker.Faker;
+import com.gridgain.dih.app.DemoConfiguration;
 import com.gridgain.dih.kafka.avro.Account;
 import com.gridgain.dih.kafka.avro.Holding;
 import com.gridgain.dih.kafka.avro.Product;
@@ -37,7 +41,8 @@ import io.confluent.kafka.serializers.KafkaAvroSerializer;
 public class KafkaCsvStockTicker implements Runnable {
 
 	public static final String START_DATE = "09/23/2013";
-	public static final String[] STOCKS = { "AAPL", "AMD", "AMZN", "CSCO", "META", "MSFT", "NFLX", "QCOM", "TSLA", "IBM" };
+	public static final String[] STOCKS = { "AAPL", "AMD", "AMZN", "CSCO", "META", "MSFT", "NFLX", "QCOM", "TSLA",
+			"IBM" };
 	public static final String[] STOCK_NAMES = { "Apple", "AMD", "Amazon", "Cisco", "Meta", "Microsoft", "Netflix",
 			"Qualcom", "Tesla", "IBM" };
 
@@ -68,14 +73,19 @@ public class KafkaCsvStockTicker implements Runnable {
 	private Map<String, StockTicker> tickers = new HashMap<>();
 
 	public static void main(String args[]) throws Exception {
+		System.setProperty("IGNITE_QUIET", "true");
 		new KafkaCsvStockTicker();
 	}
-	
+
 	public KafkaCsvStockTicker() throws Exception {
+		IgniteConfiguration cfg = new DemoConfiguration();
+		cfg.setClientMode(true);
+
+		Ignite ignite = Ignition.start(cfg);
 		// Create caches
-		try (KafkaCacheHelper kch = new KafkaCacheHelper(true)) {
-		}
-		
+		new KafkaCacheHelper(ignite, true);
+		ignite.close();
+
 		Properties props = new Properties();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_URL);
 		props.put(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, SCHEMA_REGISTRY_URL);
@@ -158,8 +168,8 @@ public class KafkaCsvStockTicker implements Runnable {
 		for (Entry<String, StockTicker> entry : tickers.entrySet()) {
 			StockTicker stockTicker = entry.getValue();
 			double currentPrice = stockTicker.tick();
-			ProductPrice productPrice = new ProductPrice(UUID.randomUUID().toString(),
-					System.currentTimeMillis(), stockTicker.getSymbol(), currentPrice);
+			ProductPrice productPrice = new ProductPrice(UUID.randomUUID().toString(), System.currentTimeMillis(),
+					stockTicker.getSymbol(), currentPrice);
 			send(productPrice);
 		}
 
@@ -174,8 +184,7 @@ public class KafkaCsvStockTicker implements Runnable {
 			}
 
 			Trade trade = new Trade(UUID.randomUUID().toString(), accounts.get(random.nextInt(NUM_ACCOUNTS)).getId(),
-					stock, random.nextInt(500), stockTicker.getCurrentPrice(), type,
-					System.currentTimeMillis());
+					stock, random.nextInt(500), stockTicker.getCurrentPrice(), type, System.currentTimeMillis());
 			send(trade);
 		}
 	}

@@ -1,15 +1,11 @@
 package com.gridgain.dih.kafka;
 
 import static org.apache.ignite.cache.CacheMode.PARTITIONED;
-import static org.apache.ignite.cluster.ClusterState.ACTIVE;
 
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
-import org.apache.ignite.Ignition;
 import org.apache.ignite.configuration.CacheConfiguration;
-import org.apache.ignite.configuration.IgniteConfiguration;
 
-import com.gridgain.dih.app.DemoConfiguration;
 import com.gridgain.dih.kafka.model.Account;
 import com.gridgain.dih.kafka.model.Holding;
 import com.gridgain.dih.kafka.model.HoldingKey;
@@ -17,32 +13,21 @@ import com.gridgain.dih.kafka.model.Product;
 import com.gridgain.dih.kafka.model.ProductPrice;
 import com.gridgain.dih.kafka.model.Trade;
 
-public class KafkaCacheHelper implements AutoCloseable {
+public class KafkaCacheHelper {
 
 	public static final String SQL_SCHEMA = "PUBLIC";
 
-	private final Ignite ignite;
+	private final IgniteCache<String, Account> accountCache;
+	private final IgniteCache<HoldingKey, Holding> holdingCache;
+	private final IgniteCache<String, Product> productCache;
+	private final IgniteCache<String, ProductPrice> productPriceCache;
+	private final IgniteCache<String, Trade> tradeCache;
 
-	IgniteCache<String, Account> accountCache;
-	IgniteCache<HoldingKey, Holding> holdingCache;
-	IgniteCache<String, Product> productCache;
-	IgniteCache<String, ProductPrice> productPriceCache;
-	IgniteCache<String, Trade> tradeCache;
-
-	public KafkaCacheHelper() throws Exception {
-		this(true);
+	public KafkaCacheHelper(Ignite ignite) throws Exception {
+		this(ignite, true);
 	}
 
-	public KafkaCacheHelper(boolean destroyCaches) throws Exception {
-		System.setProperty("IGNITE_QUIET", "true");
-
-		IgniteConfiguration cfg = new DemoConfiguration();
-		cfg.setClientMode(true);
-
-		ignite = Ignition.start(cfg);
-		ignite.cluster().state(ACTIVE);
-		ignite.cluster().tag("Demo Cluster");
-
+	public KafkaCacheHelper(Ignite ignite, boolean destroyCaches) throws Exception {
 		if (destroyCaches) {
 			System.out.println("Deleting Caches...");
 			ignite.destroyCache("Account");
@@ -59,13 +44,24 @@ public class KafkaCacheHelper implements AutoCloseable {
 		tradeCache = ignite.getOrCreateCache(new TradeCacheConfiguration<String, Trade>());
 	}
 
-	public Ignite getIgnite() {
-		return ignite;
+	public IgniteCache<String, Account> getAccountCache() {
+		return accountCache;
 	}
 
-	@Override
-	public void close() throws Exception {
-		ignite.close();
+	public IgniteCache<HoldingKey, Holding> getHoldingCache() {
+		return holdingCache;
+	}
+
+	public IgniteCache<String, Product> getProductCache() {
+		return productCache;
+	}
+
+	public IgniteCache<String, ProductPrice> getProductPriceCache() {
+		return productPriceCache;
+	}
+
+	public IgniteCache<String, Trade> getTradeCache() {
+		return tradeCache;
 	}
 
 	public class AccountCacheConfiguration<K, V> extends CacheConfiguration<String, Account> {

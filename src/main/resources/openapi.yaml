@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: GridGain Digital Itegration Hub App
+  version: 1.0.0
+  description: This is a sample server for a pet store.
+paths:
+  /city/{ID}:
+    get:
+      description: A single city.
+      summary: Get a city by ID
+      operationId: getCity
+      parameters:
+        - name: ID
+          in: path
+          description: ID of city to fetch
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: City response
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/City'
+    post:
+      description: Create a City
+      summary: Create a city
+      operationId: addCity
+      parameters:
+        - name: ID
+          in: path
+          description: ID of city to add
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: City to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/City'
+      responses:
+        '200':
+          description: pet response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single city based on the ID supplied
+      summary: Delete a city
+      operationId: deleteCity
+      parameters:
+        - name: ID
+          in: path
+          description: ID of city to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: city deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    City:
+      type: object
+      properties:
+        ID:
+          type: integer
+        name:
+          type: string
+        countryCode:
+          type: string
+        district:
+          type: string
+        population:
+          type: integer
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
