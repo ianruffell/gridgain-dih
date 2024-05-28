@@ -64,6 +64,10 @@ public class Column {
 		return TypeMapping.valueOf(type.toUpperCase()).getIgniteType();
 	}
 
+	public String getIgniteTypeLc() {
+		return getIgnitetype().toLowerCase();
+	}
+
 	public String getSqltype() {
 		return TypeMapping.valueOf(type.toUpperCase()).getSqlType();
 	}

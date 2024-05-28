@@ -47,6 +47,8 @@ public class GenerateAll {
 		String appOutputPath = metadatas[0].getAppOutputPath();
 		FileUtils.forceMkdir(new File(appOutputPath));
 
+		FileUtils.forceMkdir(new File("./openapi"));
+
 		List<Table> tables = new ArrayList<>();
 		for (Metadata metadata : metadatas) {
 			List<Table> dbTables = metadata.getTables();
@@ -94,6 +96,9 @@ public class GenerateAll {
 		out = new FileWriter(new File(appOutputPath + "/ApiServer.java"));
 		as.process(root, out);
 
+		Template oapi = freemarkerCfg.getTemplate("openapi.ftlh");
+		out = new FileWriter(new File("./openapi/openapi.yaml"));
+		oapi.process(root, out);
 	}
 
 }

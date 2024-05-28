@@ -69,6 +69,22 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>enterprise-edition</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>enterprise</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.gridgain</groupId>
+					<artifactId>gridgain-core</artifactId>
+					<version>${gridgain.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>ultimate-edition</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>

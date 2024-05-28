@@ -49,6 +49,10 @@ public class Table {
 		return keytype;
 	}
 
+	public String getKeytypeLc() {
+		return keytype.toLowerCase();
+	}
+
 	public String getKeysqltype() {
 		return keysqltype;
 	}

@@ -22,8 +22,14 @@ cd mongodb
 2. Run the class com.gridgain.dih.replicate.GenerateAll
 
 	This will generate POJOs, CacheConfiguration and IgniteClientHelper classes in com.gridgain.dih.gen package
+	This will also generate an ApiServer class and OpenApi definition which provides CRUD operations for each of the tables.
 
 ## Setup Kafka Services
+
+3. Configure License
+
+	In order to use the Kafka Connect services you will need to run either GridGain Enterprise or Ultimate Editions and hence require a license.
+	You can choose the edition by selecting the relevant Maven profile & update the LICENSE_URL in com.gridgain.dih.app.DemoConfiguration.
 
 3. Deploy Kafka to Docker
 
