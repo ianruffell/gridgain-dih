@@ -86,7 +86,7 @@ components:
       properties:
         <#list table.columns as column>
         ${column.name}:
-          type: ${column.igniteTypeLc}
+          type: ${column.openapiType}
         </#list>
 </#list>
     Error:

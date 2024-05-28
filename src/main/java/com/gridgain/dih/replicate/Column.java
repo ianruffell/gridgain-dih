@@ -6,21 +6,23 @@ public class Column {
 
 	enum TypeMapping {
 
-		CHAR("String", "VARCHAR", "java.lang"), INT("Integer", "INTEGER", "java.lang"),
-		INTEGER("Integer", "INTEGER", "java.lang"), SMALLINT("Integer", "INTEGER", "java.lang"),
-		DECIMAL("Double", "DECIMAL", "java.lang"), ENUM("String", "VARCHAR", "java.lang"),
-		VARCHAR("String", "VARCHAR", "java.lang"), BPCHAR("String", "VARCHAR", "java.lang"),
-		NUMERIC("Integer", "INTEGER", "java.lang"), INT4("Integer", "INTEGER", "java.lang"),
-		TIMESTAMP("Timestamp", "TIMESTAMP", "java.util"), TEXT("String", "VARCHAR", "java.lang"),
-		STRING("String", "VARCHAR", "java.lang");
+		CHAR("String", "VARCHAR", "string", "java.lang"), INT("Integer", "INTEGER", "integer", "java.lang"),
+		INTEGER("Integer", "INTEGER", "integer", "java.lang"), SMALLINT("Integer", "INTEGER", "integer", "java.lang"),
+		DECIMAL("Double", "DECIMAL", "number", "java.lang"), ENUM("String", "VARCHAR", "string", "java.lang"),
+		VARCHAR("String", "VARCHAR", "string", "java.lang"), BPCHAR("String", "VARCHAR", "string", "java.lang"),
+		NUMERIC("Integer", "INTEGER", "number", "java.lang"), INT4("Integer", "INTEGER", "integer", "java.lang"),
+		TIMESTAMP("Timestamp", "TIMESTAMP", "number", "java.util"), TEXT("String", "VARCHAR", "string", "java.lang"),
+		STRING("String", "VARCHAR", "string", "java.lang");
 
 		private final String igniteType;
 		private final String sqlType;
+		private final String openapiType;
 		private final String packageName;
 
-		private TypeMapping(String igniteType, String sqlType, String packageName) {
+		private TypeMapping(String igniteType, String sqlType, String openapiType, String packageName) {
 			this.igniteType = igniteType;
 			this.sqlType = sqlType;
+			this.openapiType = openapiType;
 			this.packageName = packageName;
 		}
 
@@ -36,6 +38,9 @@ public class Column {
 			return packageName;
 		}
 
+		public String getOpenapiType() {
+			return openapiType;
+		}
 	}
 
 	private String name;
@@ -64,8 +69,8 @@ public class Column {
 		return TypeMapping.valueOf(type.toUpperCase()).getIgniteType();
 	}
 
-	public String getIgniteTypeLc() {
-		return getIgnitetype().toLowerCase();
+	public String getOpenapiType() {
+		return TypeMapping.valueOf(type.toUpperCase()).getOpenapiType();
 	}
 
 	public String getSqltype() {
