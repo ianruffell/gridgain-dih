@@ -4,6 +4,7 @@ import org.apache.ignite.cache.query.annotations.QuerySqlField;
 <#if table.containsTimestamp == true>
 import java.sql.Timestamp;
 </#if>
+import java.sql.Date;
 
 public class ${table.classname} {
 

@@ -10,7 +10,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<ignite.version>2.16.0</ignite.version>
-		<gridgain.version>8.9.5</gridgain.version>
+		<gridgain.version>8.9.12</gridgain.version>
 		<spark.version>2.4.0</spark.version>
 		<kafka.version>7.5.0</kafka.version>
 		<jersey.version>2.43</jersey.version>
@@ -22,7 +22,7 @@
 		<repository>
 			<id>GridGain External Repository</id>
 			<url>
-				http://www.gridgainsystems.com/nexus/content/repositories/external</url>
+				https://www.gridgainsystems.com/nexus/content/repositories/external</url>
 		</repository>
 		<repository>
 			<id>confluent</id>
@@ -155,6 +155,11 @@
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<version>2.3.32</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc11</artifactId>
+			<version>23.2.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

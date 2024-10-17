@@ -1,0 +1,1 @@
+docker run -d -p 1521:1521 -v $PWD/co_install.sql /opt/data/co_install.sql -e ORACLE_PASSWORD=oracle gvenzl/oracle-free

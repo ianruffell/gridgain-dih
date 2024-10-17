@@ -13,10 +13,15 @@ public class DB {
 	private final String schema;
 	private final String hostname;
 	private final int port;
+	private final String user;
+	private final String password;
+
 
 	public DB(String jdbcUrl, DBType type, String dialect, String datasourceClass, String datasourcePackage,
-			String schema) {
+			String schema, String user, String password) {
 		this.jdbcUrl = jdbcUrl;
+		this.user = user;
+		this.password = password;
 		this.type = type.name();
 		this.dialect = dialect;
 		this.datasourceClass = datasourceClass;
@@ -36,7 +41,8 @@ public class DB {
 		this.dialect = null;
 		this.datasourceClass = null;
 		this.datasourcePackage = null;
-
+		this.user = null;
+		this.password = null;
 	}
 
 	public String getJdbcUrl() {
@@ -69,6 +75,14 @@ public class DB {
 
 	public int getPort() {
 		return port;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 }

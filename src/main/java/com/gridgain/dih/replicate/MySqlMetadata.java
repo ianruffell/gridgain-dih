@@ -22,7 +22,7 @@ public class MySqlMetadata extends JdbcMetadata
 
 	@Override
 	public DB getDB() {
-		return new DB(getJdbcUrl(), DB.DBType.JDBC, "MySQLDialect", "MysqlDataSource", "com.mysql.cj.jdbc", DB_SCHEMA);
+		return new DB(getJdbcUrl(), DB.DBType.JDBC, "MySQLDialect", "MysqlDataSource", "com.mysql.cj.jdbc", DB_SCHEMA, DB_USERNAME, DB_PASSWORD);
 	}
 
 	@Override

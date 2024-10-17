@@ -18,8 +18,8 @@ import freemarker.template.TemplateExceptionHandler;
 public class GenerateAll {
 
 	private final Configuration freemarkerCfg;
-	private final Metadata[] metadatas = { new MongoDBMetadata(), new CassandraMetadata(), new MySqlMetadata(),
-			new PostgresMetadata() };
+	private final Metadata[] metadatas = { new OracleMetadata() };
+	//, new MongoDBMetadata(), new CassandraMetadata(), new MySqlMetadata(), new PostgresMetadata() };
 
 	public static void main(String[] args) throws Exception {
 		GenerateAll generateAll = new GenerateAll();

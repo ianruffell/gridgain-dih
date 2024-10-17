@@ -9,10 +9,12 @@ public class Column {
 		CHAR("String", "VARCHAR", "string", "java.lang"), INT("Integer", "INTEGER", "integer", "java.lang"),
 		INTEGER("Integer", "INTEGER", "integer", "java.lang"), SMALLINT("Integer", "INTEGER", "integer", "java.lang"),
 		DECIMAL("Double", "DECIMAL", "number", "java.lang"), ENUM("String", "VARCHAR", "string", "java.lang"),
-		VARCHAR("String", "VARCHAR", "string", "java.lang"), BPCHAR("String", "VARCHAR", "string", "java.lang"),
+		VARCHAR("String", "VARCHAR", "string", "java.lang"), VARCHAR2("String", "VARCHAR", "string", "java.lang"),
+		BPCHAR("String", "VARCHAR", "string", "java.lang"), NUMBER("Integer", "INTEGER", "number", "java.lang"),
 		NUMERIC("Integer", "INTEGER", "number", "java.lang"), INT4("Integer", "INTEGER", "integer", "java.lang"),
-		TIMESTAMP("Timestamp", "TIMESTAMP", "number", "java.util"), TEXT("String", "VARCHAR", "string", "java.lang"),
-		STRING("String", "VARCHAR", "string", "java.lang");
+		TIMESTAMP("Timestamp", "TIMESTAMP", "number", "java.sql"), DATE("Date", "DATE", "string", "java.sql"),
+		TEXT("String", "VARCHAR", "string", "java.lang"), STRING("String", "VARCHAR", "string", "java.lang"),
+		BLOB("Object", "BLOB", "object", "java.lang");
 
 		private final String igniteType;
 		private final String sqlType;

@@ -26,7 +26,7 @@ public class PostgresMetadata extends JdbcMetadata {
 	@Override
 	public DB getDB() {
 		return new DB(getJdbcUrl(), DB.DBType.JDBC, "BasicJdbcDialect", "PGSimpleDataSource", "org.postgresql.ds",
-				"cd");
+				"cd", DB_USERNAME, DB_PASSWORD);
 	}
 
 	@Override

@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.sql.SQLException;
+import java.sql.Date;
 <#if table.containsTimestamp == true>
 import java.sql.Timestamp;
 </#if>
@@ -54,8 +56,15 @@ public class ${table.classname}CacheConfiguration<K, V> extends CacheConfigurati
 		CacheJdbcPojoStoreFactory<${table.keytype}, ${table.classname}> factory = new CacheJdbcPojoStoreFactory<>();
 		factory.setDialect(new ${db.dialect}());
 		factory.setDataSourceFactory((Factory<DataSource>) () -> {
-			${db.datasourceClass} dataSrc = new ${db.datasourceClass}();
-			dataSrc.setURL("${db.jdbcUrl?no_esc}");
+		    ${db.datasourceClass} dataSrc = null;
+		    try {
+			    dataSrc = new ${db.datasourceClass}();
+			    dataSrc.setURL("${db.jdbcUrl?no_esc}");
+				dataSrc.setUser("${db.user}");
+				dataSrc.setPassword("${db.password}");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return dataSrc;
 		});
 

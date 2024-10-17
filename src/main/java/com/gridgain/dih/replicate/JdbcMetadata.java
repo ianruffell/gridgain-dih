@@ -18,7 +18,7 @@ public abstract class JdbcMetadata extends Metadata {
 		List<Table> tables = new ArrayList<>();
 
 		DatabaseMetaData metaData = conn.getMetaData();
-		ResultSet tablers = metaData.getTables(null, null, null, new String[] { getMetadataForTable() });
+		ResultSet tablers = metaData.getTables(null, getDB().getSchema(), null, new String[] { getMetadataForTable() });
 
 		List<String> tableNames = new ArrayList<>();
 		while (tablers.next()) {
@@ -31,14 +31,13 @@ public abstract class JdbcMetadata extends Metadata {
 		for (String tableName : tableNames) {
 			System.out.println(tableName);
 			Table table = null;
-			ResultSet columns = metaData.getColumns(null, null, tableName, null);
+			ResultSet columns = metaData.getColumns(null, getDB().getSchema(), tableName, null);
 			while (columns.next()) {
-				/*
-				 * for (int i = 1; i <= columns.getMetaData().getColumnCount(); i++) {
-				 * System.out.println(columns.getObject(i)); } System.out.println();
-				 */
 				String name = columns.getString("COLUMN_NAME");
 				String type = columns.getString("TYPE_NAME");
+				if (type.equals("TIMESTAMP(6)")) {
+					type = "TIMESTAMP";
+				}
 				boolean nullable = columns.getBoolean("IS_NULLABLE");
 				Column column = new Column(name, type, nullable);
 
